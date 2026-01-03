@@ -1,15 +1,11 @@
 
 import React from 'react';
 
-const Hero: React.FC = () => {
-  const scrollToPricing = () => {
-    const element = document.getElementById('pricing');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      window.history.pushState(null, '', '#pricing');
-    }
-  };
+interface HeroProps {
+  onEnrollClick: () => void;
+}
 
+const Hero: React.FC<HeroProps> = ({ onEnrollClick }) => {
   return (
     <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
@@ -34,13 +30,16 @@ const Hero: React.FC = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <button 
-              onClick={scrollToPricing}
+              onClick={onEnrollClick}
               className="group relative bg-brand-600 hover:bg-brand-700 text-white text-xl font-bold px-10 py-5 rounded-2xl shadow-xl shadow-brand-600/20 transition-all hover:scale-105 active:scale-95"
             >
               Enroll in CDIP Training
               <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
             </button>
-            <button className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-lg font-bold px-8 py-4 rounded-xl transition-all">
+            <button 
+              onClick={() => document.getElementById('synergy-video')?.scrollIntoView({behavior: 'smooth'})}
+              className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-lg font-bold px-8 py-4 rounded-xl transition-all"
+            >
               Watch Course Overview
             </button>
           </div>

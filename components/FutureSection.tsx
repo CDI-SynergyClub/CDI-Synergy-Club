@@ -1,19 +1,11 @@
 
 import React from 'react';
 
-const FutureSection: React.FC = () => {
-  const scrollToPricing = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const element = document.getElementById('pricing');
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-      window.history.pushState(null, '', `#pricing`);
-    }
-  };
+interface FutureSectionProps {
+  onEnrollClick: () => void;
+}
 
+const FutureSection: React.FC<FutureSectionProps> = ({ onEnrollClick }) => {
   return (
     <section className="py-24 px-4 bg-slate-50 overflow-hidden relative border-y border-slate-200">
       <div className="max-w-7xl mx-auto relative z-10">
@@ -106,7 +98,7 @@ const FutureSection: React.FC = () => {
             </div>
 
             <button 
-              onClick={scrollToPricing}
+              onClick={onEnrollClick}
               className="relative z-10 w-full bg-brand-600 hover:bg-brand-700 text-white font-black py-5 rounded-2xl shadow-xl shadow-brand-600/20 transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 text-lg"
             >
               Prepare for the Growth. Join Today.

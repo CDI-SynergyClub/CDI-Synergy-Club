@@ -1,16 +1,31 @@
 
 import React from 'react';
 
-const PricingSection: React.FC = () => {
+interface PricingSectionProps {
+  onEnrollClick: () => void;
+}
+
+const PricingSection: React.FC<PricingSectionProps> = ({ onEnrollClick }) => {
   return (
     <section id="pricing" className="py-24 px-4 bg-white relative scroll-mt-24">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-6xl font-display font-black text-slate-900 mb-6">Invest in Mastery</h2>
-          <div className="inline-block bg-brand-900 text-white text-5xl font-black px-12 py-8 rounded-[2rem] shadow-2xl shadow-brand-900/20">
+          <div 
+            onClick={onEnrollClick}
+            className="inline-block bg-brand-900 text-white text-5xl font-black px-12 py-8 rounded-[2rem] shadow-2xl shadow-brand-900/20 cursor-pointer hover:scale-105 transition-transform"
+          >
             ₹35,000 <span className="text-lg font-normal opacity-60">Total Fee</span>
           </div>
           <p className="text-slate-600 mt-8 text-lg font-medium italic">One-time payment. Lifelong professional impact.</p>
+          
+          <button 
+            onClick={onEnrollClick}
+            className="mt-10 bg-brand-600 hover:bg-brand-700 text-white font-black px-12 py-5 rounded-2xl shadow-xl transition-all hover:scale-105 flex items-center gap-4 mx-auto text-xl"
+          >
+            Enroll Today
+            <i className="fa-solid fa-arrow-right"></i>
+          </button>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">

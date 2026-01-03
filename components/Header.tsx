@@ -4,9 +4,10 @@ import React from 'react';
 interface HeaderProps {
   isScrolled: boolean;
   onSyllabusClick: () => void;
+  onEnrollClick: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ isScrolled, onSyllabusClick }) => {
+const Header: React.FC<HeaderProps> = ({ isScrolled, onSyllabusClick, onEnrollClick }) => {
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     const element = document.getElementById(id);
@@ -54,13 +55,12 @@ const Header: React.FC<HeaderProps> = ({ isScrolled, onSyllabusClick }) => {
           >
             Pricing
           </a>
-          <a 
-            href="#pricing" 
-            onClick={(e) => scrollToSection(e, 'pricing')}
+          <button 
+            onClick={onEnrollClick}
             className="bg-brand-600 hover:bg-brand-700 text-white px-6 py-2 rounded-full font-bold shadow-md shadow-brand-600/10 transition-all hover:-translate-y-0.5 active:translate-y-0 text-center"
           >
             Enroll Today
-          </a>
+          </button>
         </div>
 
         <button className="md:hidden text-slate-900 text-2xl">

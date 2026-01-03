@@ -51,6 +51,6 @@ export const sendMessageToGemini = async (message: string, history: { role: 'use
     return { text, links, action };
   } catch (error) {
     console.error("Gemini Deployment Error:", error);
-    return { text: "Protocol interrupted. Please refresh or contact team@cdisynergy.club for enrollment assistance.", links: [], action: null };
+    return { text: "Protocol interrupted. Please refresh or contact Info@cdisynergyclub.com for enrollment assistance.", links: [], action: null };
   }
 };

@@ -12,6 +12,7 @@ const SyllabusModal: React.FC<SyllabusModalProps> = ({ isOpen, onClose }) => {
   const [isSending, setIsSending] = useState(false);
   const [isPreparingDownload, setIsPreparingDownload] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -55,7 +56,6 @@ const SyllabusModal: React.FC<SyllabusModalProps> = ({ isOpen, onClose }) => {
 
   const triggerDownload = () => {
     setIsPreparingDownload(true);
-    // Use a slightly longer timeout to ensure browser paints are complete and to avoid race conditions with window.print()
     setTimeout(() => {
       try {
         window.print();
@@ -67,32 +67,46 @@ const SyllabusModal: React.FC<SyllabusModalProps> = ({ isOpen, onClose }) => {
     }, 800);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
+    setError(null);
     
-    // Simulate API call to save lead and trigger email dispatch
-    setTimeout(() => {
-      console.log("Lead Captured & Email Sent to:", formData.email);
+    try {
+      const response = await fetch("https://formspree.io/f/xlgdpelb", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          subject: `New Syllabus Request: ${formData.name}`,
+          ...formData
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        throw new Error("Submission failed.");
+      }
+    } catch (err) {
+      setError("Communication failure. Please try again or contact support.");
+    } finally {
       setIsSending(false);
-      setSubmitted(true);
-    }, 1200);
+    }
   };
 
   return (
     <>
-      {/* Interactive Modal UI - HIDDEN DURING PRINTING */}
       <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 print:hidden overflow-hidden">
-        {/* Backdrop */}
         <div 
           className="absolute inset-0 bg-slate-900/80 backdrop-blur-md transition-opacity duration-300" 
           onClick={onClose}
         ></div>
         
-        {/* Modal Content */}
         <div className="relative bg-white w-full max-w-4xl max-h-[95vh] overflow-y-auto rounded-[2rem] lg:rounded-[3rem] shadow-[0_0_100px_-20px_rgba(0,0,0,0.4)] flex flex-col transform transition-all duration-300 border border-slate-200">
           
-          {/* Header */}
           <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-100 p-6 flex justify-between items-center">
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center shadow-lg shadow-brand-600/20">
@@ -195,11 +209,18 @@ const SyllabusModal: React.FC<SyllabusModalProps> = ({ isOpen, onClose }) => {
                       <p className="text-slate-500 font-medium">Enter your details to receive the high-resolution PDF syllabus.</p>
                     </div>
                     
+                    {error && (
+                      <div className="p-3 bg-red-50 border border-red-100 text-red-600 text-xs font-bold rounded-xl text-center">
+                        {error}
+                      </div>
+                    )}
+
                     <div className="space-y-4">
                       <div>
                         <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Full Name</label>
                         <input 
                           type="text" 
+                          name="name"
                           required
                           value={formData.name}
                           onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -211,6 +232,7 @@ const SyllabusModal: React.FC<SyllabusModalProps> = ({ isOpen, onClose }) => {
                         <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Work Email</label>
                         <input 
                           type="email" 
+                          name="email"
                           required
                           value={formData.email}
                           onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -222,6 +244,7 @@ const SyllabusModal: React.FC<SyllabusModalProps> = ({ isOpen, onClose }) => {
                         <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Mobile Number</label>
                         <input 
                           type="tel" 
+                          name="mobile"
                           required
                           value={formData.mobile}
                           onChange={(e) => setFormData({...formData, mobile: e.target.value})}

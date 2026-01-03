@@ -1,15 +1,11 @@
 
 import React from 'react';
 
-const PainPoints: React.FC = () => {
-  const scrollToPricing = () => {
-    const element = document.getElementById('pricing');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      window.history.pushState(null, '', '#pricing');
-    }
-  };
+interface PainPointsProps {
+  onEnrollClick: () => void;
+}
 
+const PainPoints: React.FC<PainPointsProps> = ({ onEnrollClick }) => {
   const pitfalls = [
     {
       icon: "fa-brain",
@@ -77,12 +73,9 @@ const PainPoints: React.FC = () => {
         </div>
 
         <div className="mt-20 relative">
-          {/* Intense glow effect for the Royal Blue box */}
           <div className="absolute inset-0 bg-indigo-600 rounded-[3rem] blur-2xl opacity-30 -z-10 animate-pulse"></div>
           
-          {/* Synergy Alternative Box - Royal Blue / Purple Gradient */}
           <div className="bg-gradient-to-br from-indigo-700 via-brand-700 to-violet-800 rounded-[3rem] p-10 lg:p-16 text-center text-white shadow-2xl shadow-indigo-900/40 overflow-hidden relative">
-            {/* Elegant Background Patterns - strictly subtle and dark to maintain the rich color */}
             <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
             <div className="absolute bottom-0 left-0 w-56 h-56 bg-indigo-900/20 rounded-full translate-y-1/2 -translate-x-1/2"></div>
             
@@ -93,7 +86,7 @@ const PainPoints: React.FC = () => {
                 Our methodology replaces rote memorization with deep clinical logic.
               </p>
               <button 
-                onClick={scrollToPricing}
+                onClick={onEnrollClick}
                 className="bg-white text-indigo-700 font-black px-12 py-5 rounded-2xl hover:bg-brand-50 shadow-2xl transition-all hover:scale-105 active:scale-95 text-lg"
               >
                 Experience the Difference

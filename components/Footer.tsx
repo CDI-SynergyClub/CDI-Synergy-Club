@@ -54,8 +54,8 @@ const Footer: React.FC<FooterProps> = ({ onSyllabusClick }) => {
         <div>
           <h4 className="text-slate-900 font-bold mb-6 uppercase tracking-widest text-xs">Contact</h4>
           <ul className="space-y-4 text-slate-500 text-sm font-semibold">
-            <li><i className="fa-solid fa-envelope mr-2 text-brand-600"></i> team@cdisynergy.club</li>
-            <li><i className="fa-solid fa-phone mr-2 text-brand-600"></i> Enrollment Support Available</li>
+            <li><i className="fa-solid fa-envelope mr-2 text-brand-600"></i> Info@cdisynergyclub.com</li>
+            <li><i className="fa-solid fa-phone mr-2 text-brand-600"></i> +91 89781 13147</li>
           </ul>
         </div>
       </div>

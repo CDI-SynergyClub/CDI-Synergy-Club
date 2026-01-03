@@ -1,7 +1,11 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 
-const VideoSection: React.FC = () => {
+interface VideoSectionProps {
+  onEnrollClick: () => void;
+}
+
+const VideoSection: React.FC<VideoSectionProps> = ({ onEnrollClick }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -53,7 +57,7 @@ const VideoSection: React.FC = () => {
   };
 
   return (
-    <section ref={containerRef} className="py-24 px-4 bg-white relative overflow-hidden">
+    <section id="synergy-video" ref={containerRef} className="py-24 px-4 bg-white relative overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-100/30 blur-[120px] rounded-full -z-10"></div>
       
       <div className="max-w-7xl mx-auto">
@@ -96,7 +100,13 @@ const VideoSection: React.FC = () => {
             </div>
             <h2 className="text-4xl lg:text-6xl font-display font-black text-slate-900 mb-8 leading-[1.1]">A Quiet <span className="text-brand-600">Revolution</span> in Healthcare.</h2>
             <p className="text-slate-600 text-lg lg:text-xl mb-10 leading-relaxed font-medium">Clinical Documentation Improvement is moving from the back office to the heart of patient care. The era of "Accelerated CDI" demands a new level of professional mastery.</p>
-            <button className="bg-slate-900 hover:bg-black text-white font-black px-12 py-5 rounded-2xl shadow-xl transition-all hover:-translate-y-1 flex items-center gap-4 text-lg" onClick={() => document.getElementById('pricing')?.scrollIntoView({behavior: 'smooth'})}>Secure Your Future (₹35k)<i className="fa-solid fa-arrow-right-long text-brand-400"></i></button>
+            <button 
+              className="bg-slate-900 hover:bg-black text-white font-black px-12 py-5 rounded-2xl shadow-xl transition-all hover:-translate-y-1 flex items-center gap-4 text-lg" 
+              onClick={onEnrollClick}
+            >
+              Secure Your Future (₹35k)
+              <i className="fa-solid fa-arrow-right-long text-brand-400"></i>
+            </button>
           </div>
         </div>
       </div>
