@@ -1,0 +1,7 @@
+{
+  "name": "CDI Synergy Club",
+  "description": "A high-energy, discipline-driven professional certification platform for CDIP aspirants, featuring instructor-led coaching, AI-powered study assistance, and a focus on clinical mastery.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
